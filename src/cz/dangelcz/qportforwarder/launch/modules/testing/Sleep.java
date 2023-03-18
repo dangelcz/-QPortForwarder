@@ -1,8 +1,9 @@
-package launch.modules.testing;
+package cz.dangelcz.qportforwarder.launch.modules.testing;
 
-import libs.GeneralHelper;
-import launch.ARunModule;
-import launch.annotation.RunModule;
+
+import cz.dangelcz.qportforwarder.launch.ARunModule;
+import cz.dangelcz.qportforwarder.launch.annotation.RunModule;
+import cz.dangelcz.qportforwarder.libs.GeneralHelper;
 
 @RunModule
 public class Sleep extends ARunModule

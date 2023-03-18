@@ -1,8 +1,8 @@
-package launch.modules;
+package cz.dangelcz.qportforwarder.launch.modules;
 
-import config.AppConfig;
-import launch.ARunModule;
-import launch.annotation.RunModule;
+import cz.dangelcz.qportforwarder.config.AppConfig;
+import cz.dangelcz.qportforwarder.launch.ARunModule;
+import cz.dangelcz.qportforwarder.launch.annotation.RunModule;
 
 @RunModule
 public class Version extends ARunModule

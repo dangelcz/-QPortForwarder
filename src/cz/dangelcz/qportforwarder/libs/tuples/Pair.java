@@ -1,4 +1,4 @@
-package libs.tuples;
+package cz.dangelcz.qportforwarder.libs.tuples;
 
 public class Pair<T1, T2> extends ATuple<T1>
 {

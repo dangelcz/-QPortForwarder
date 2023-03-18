@@ -1,12 +1,12 @@
-package launch.modules;
+package cz.dangelcz.qportforwarder.launch.modules;
+
+import cz.dangelcz.qportforwarder.config.AppConfig;
+import cz.dangelcz.qportforwarder.launch.ARunModule;
+import cz.dangelcz.qportforwarder.launch.AppLauncher;
+import cz.dangelcz.qportforwarder.launch.annotation.RunModule;
 
 import java.util.Map;
 import java.util.TreeSet;
-
-import config.AppConfig;
-import launch.ARunModule;
-import launch.AppLauncher;
-import launch.annotation.RunModule;
 
 @RunModule
 public class Help extends ARunModule

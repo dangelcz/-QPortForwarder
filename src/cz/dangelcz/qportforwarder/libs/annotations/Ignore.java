@@ -1,4 +1,4 @@
-package libs.annotations;
+package cz.dangelcz.qportforwarder.libs.annotations;
 
 
 import java.lang.annotation.ElementType;

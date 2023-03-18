@@ -1,4 +1,4 @@
-package config;
+package cz.dangelcz.qportforwarder.config;
 
 public class AppConfig
 {

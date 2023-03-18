@@ -1,11 +1,12 @@
-package launch;
+package cz.dangelcz.qportforwarder.launch;
+
+
+import cz.dangelcz.qportforwarder.launch.annotation.RunModule;
+import cz.dangelcz.qportforwarder.launch.exceptions.ValidationException;
+import cz.dangelcz.qportforwarder.libs.PackageReflection;
+import cz.dangelcz.qportforwarder.libs.PackageReflection.*;
 
 import java.util.*;
-
-import launch.annotation.RunModule;
-import launch.exceptions.ValidationException;
-import libs.PackageReflection;
-import libs.PackageReflection.ClassCriteria;
 
 public class AppLauncher
 {

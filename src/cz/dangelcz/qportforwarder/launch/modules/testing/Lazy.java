@@ -1,10 +1,12 @@
-package launch.modules.testing;
+package cz.dangelcz.qportforwarder.launch.modules.testing;
+
+
+
+import cz.dangelcz.qportforwarder.launch.ARunModule;
+import cz.dangelcz.qportforwarder.launch.AppLauncher;
+import cz.dangelcz.qportforwarder.launch.annotation.RunModule;
 
 import java.util.Scanner;
-
-import launch.ARunModule;
-import launch.AppLauncher;
-import launch.annotation.RunModule;
 
 /**
  * Just stops the program at the begginnig, then launches module by given parameters

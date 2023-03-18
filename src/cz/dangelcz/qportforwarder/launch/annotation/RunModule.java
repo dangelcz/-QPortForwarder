@@ -1,4 +1,4 @@
-package launch.annotation;
+package cz.dangelcz.qportforwarder.launch.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

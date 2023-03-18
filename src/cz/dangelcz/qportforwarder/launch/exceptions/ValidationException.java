@@ -1,4 +1,4 @@
-package launch.exceptions;
+package cz.dangelcz.qportforwarder.launch.exceptions;
 
 public class ValidationException extends RuntimeException
 {

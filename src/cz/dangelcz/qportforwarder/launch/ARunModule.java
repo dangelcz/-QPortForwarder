@@ -1,13 +1,14 @@
-package launch;
+package cz.dangelcz.qportforwarder.launch;
 
-import static libs.GeneralHelper.INNL;
+
+import cz.dangelcz.qportforwarder.launch.annotation.RunModule;
+import cz.dangelcz.qportforwarder.launch.exceptions.ValidationException;
+import cz.dangelcz.qportforwarder.libs.GeneralHelper;
 
 import java.util.Arrays;
 import java.util.List;
 
-import launch.annotation.RunModule;
-import launch.exceptions.ValidationException;
-import libs.GeneralHelper;
+import static cz.dangelcz.qportforwarder.libs.GeneralHelper.INNL;
 
 public abstract class ARunModule
 {

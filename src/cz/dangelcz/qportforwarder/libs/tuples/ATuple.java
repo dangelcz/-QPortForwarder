@@ -1,4 +1,4 @@
-package libs.tuples;
+package cz.dangelcz.qportforwarder.libs.tuples;
 
 public class ATuple<T1>
 {

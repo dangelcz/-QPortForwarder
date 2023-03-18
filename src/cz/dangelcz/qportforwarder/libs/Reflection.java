@@ -1,4 +1,6 @@
-package libs;
+package cz.dangelcz.qportforwarder.libs;
+
+import cz.dangelcz.qportforwarder.libs.annotations.Ignore;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -7,8 +9,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import libs.annotations.Ignore;
 
 
 public class Reflection

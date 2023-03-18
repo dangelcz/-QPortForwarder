@@ -1,4 +1,4 @@
-package libs.tuples;
+package cz.dangelcz.qportforwarder.libs.tuples;
 
 public class Quartet<T1, T2, T3, T4> extends Triplet<T1, T2, T3>
 {

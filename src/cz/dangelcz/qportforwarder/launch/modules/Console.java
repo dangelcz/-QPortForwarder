@@ -1,11 +1,11 @@
-package launch.modules;
+package cz.dangelcz.qportforwarder.launch.modules;
+
+import cz.dangelcz.qportforwarder.launch.ARunModule;
+import cz.dangelcz.qportforwarder.launch.AppLauncher;
+import cz.dangelcz.qportforwarder.launch.annotation.RunModule;
 
 import java.util.NoSuchElementException;
 import java.util.Scanner;
-
-import launch.ARunModule;
-import launch.AppLauncher;
-import launch.annotation.RunModule;
 
 
 @RunModule
