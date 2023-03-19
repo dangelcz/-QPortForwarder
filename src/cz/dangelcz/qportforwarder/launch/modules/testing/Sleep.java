@@ -2,6 +2,7 @@ package cz.dangelcz.qportforwarder.launch.modules.testing;
 
 
 import cz.dangelcz.qportforwarder.launch.ARunModule;
+import cz.dangelcz.qportforwarder.launch.ArgumentReader;
 import cz.dangelcz.qportforwarder.launch.annotation.RunModule;
 import cz.dangelcz.qportforwarder.libs.GeneralHelper;
 
@@ -9,13 +10,13 @@ import cz.dangelcz.qportforwarder.libs.GeneralHelper;
 public class Sleep extends ARunModule
 {
 	@Override
-	public void run(String[] args)
+	public void run(ArgumentReader arguments)
 	{
 		int sleepInterval = 60;
 
-		if (args.length > 1)
+		if (!arguments.isEmpty())
 		{
-			sleepInterval = Integer.parseInt(args[1]);
+			sleepInterval = arguments.getNextIntArgument();
 		}
 
 		sleep(sleepInterval);

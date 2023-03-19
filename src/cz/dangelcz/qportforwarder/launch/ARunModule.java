@@ -41,64 +41,12 @@ public abstract class ARunModule
 												helpDescription);
 	}
 
-	protected String getArgument(String[] args, int index)
-	{
-		if (args.length <= index)
-		{
-			throw new ValidationException("Missing argument number: " + index);
-		}
-
-		return args[index];
-	}
-	
-	protected String getArgumentOrDefault(String[] args, int index, String defaultValue)
-	{
-		if (args.length <= index)
-		{
-			return defaultValue;
-		}
-		
-		return args[index];
-	}
-
-	protected int getIntArgument(String[] args, int index)
-	{
-		if (args.length <= index)
-		{
-			throw new ValidationException("Missing argument number: " + index);
-		}
-
-		try
-		{
-			return Integer.parseInt(args[index]);
-		} catch (NumberFormatException e)
-		{
-			throw new ValidationException("Given parameter is not a number");
-		}
-	}
-	
-	protected int getIntArgumentOrDefault(String[] args, int index, int defaultValue)
-	{
-		if (args.length <= index)
-		{
-			return defaultValue;
-		}
-
-		try
-		{
-			return Integer.parseInt(args[index]);
-		} catch (NumberFormatException e)
-		{
-			throw new ValidationException("Given parameter is not a number");
-		}
-	}
-
 	protected List<String> fromString(String separatedLine)
 	{
 		return Arrays.asList(separatedLine.split(" "));
 	}
 
-	public abstract void run(String[] args);
+	public abstract void run(ArgumentReader arguments);
 
 	public abstract String getRequiredParameters();
 

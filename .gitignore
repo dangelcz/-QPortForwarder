@@ -8,3 +8,4 @@
 !build/*
 
 !pom.xml
+!log4j2.xml

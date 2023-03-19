@@ -5,6 +5,9 @@ import cz.dangelcz.qportforwarder.launch.annotation.RunModule;
 import cz.dangelcz.qportforwarder.launch.exceptions.ValidationException;
 import cz.dangelcz.qportforwarder.libs.PackageReflection;
 import cz.dangelcz.qportforwarder.libs.PackageReflection.*;
+import cz.dangelcz.qportforwarder.libs.Reflection;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.*;
 
@@ -15,16 +18,19 @@ public class AppLauncher
 	private static final String MODULES_PACKAGE = ARunModule.class.getPackage().getName() + ".modules";
 	private static final String TEST_MODULES_PACKAGE = ARunModule.class.getPackage().getName() + ".modules.testing";
 
+	private static Logger logger = LogManager.getLogger(AppLauncher.class);
+
 	public static void main(String[] args)
 	{
 		try
 		{
 			loadModules();
 			launchModule(args);
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
 			// log application failure error
-			System.err.println(e);
+			logger.error(e);
 		}
 	}
 
@@ -32,6 +38,8 @@ public class AppLauncher
 	{
 		return modules;
 	}
+
+	private static ARunModule defaultModule;
 
 	private static void loadModules() throws InstantiationException, IllegalAccessException
 	{
@@ -45,37 +53,74 @@ public class AppLauncher
 		List<Class<?>> modulesClasses = PackageReflection.getClassesOfPackage(MODULES_PACKAGE, ClassCriteria.BY_ANNOTATION, RunModule.class);
 		List<Class<?>> testsModulesClasses = PackageReflection.getClassesOfPackage(TEST_MODULES_PACKAGE, ClassCriteria.BY_ANNOTATION, RunModule.class);
 		modulesClasses.addAll(testsModulesClasses);
-		
+
 		ARunModule module;
 		for (Class<?> clazz : modulesClasses)
 		{
 			module = (ARunModule) clazz.newInstance();
+			checkDefaultModule(module);
 			modules.put(module.getCommandName(), module);
 		}
 	}
 
+	private static void checkDefaultModule(ARunModule module)
+	{
+		RunModule annotation = module.getClass().getAnnotation(RunModule.class);
+
+		if (!annotation.isDefault())
+		{
+			return;
+		}
+
+		if (defaultModule == null)
+		{
+			defaultModule = module;
+		}
+		else
+		{
+			throw new Error("Multiple default modules found");
+		}
+
+	}
+
 	private static void launchModule(String[] args)
 	{
-		if (args.length == 0)
+		ArgumentReader arguments = new ArgumentReader(args);
+		ARunModule module;
+		if (arguments.isEmpty() && defaultModule == null)
 		{
 			printBadCommand();
 			return;
 		}
 
-		ARunModule module = modules.getOrDefault(args[0].toLowerCase(), null);
+		String command = arguments.getArgument(0);
+		module = modules.getOrDefault(command.toLowerCase(), null);
 
 		if (module == null)
 		{
-			printBadCommand(args[0]);
-			return;
+			if (defaultModule != null)
+			{
+				module = defaultModule;
+			}
+			else
+			{
+				printBadCommand(command);
+				return;
+			}
+		}
+		else
+		{
+			// move index from first to second, so submodule can use "next" method
+			arguments.setArgumentIndex(1);
 		}
 
 		try
 		{
-			module.run(args);
-		} catch (ValidationException e)
+			module.run(arguments);
+		}
+		catch (ValidationException e)
 		{
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 			System.out.println();
 			module.printModuleHelp();
 		}

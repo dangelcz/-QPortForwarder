@@ -4,6 +4,7 @@ package cz.dangelcz.qportforwarder.launch.modules.testing;
 
 import cz.dangelcz.qportforwarder.launch.ARunModule;
 import cz.dangelcz.qportforwarder.launch.AppLauncher;
+import cz.dangelcz.qportforwarder.launch.ArgumentReader;
 import cz.dangelcz.qportforwarder.launch.annotation.RunModule;
 
 import java.util.Scanner;
@@ -20,7 +21,7 @@ import java.util.Scanner;
 public class Lazy extends ARunModule
 {
 	@Override
-	public void run(String[] args)
+	public void run(ArgumentReader arguments)
 	{
 		System.out.println("Press enter to continue ...");
 
@@ -28,10 +29,10 @@ public class Lazy extends ARunModule
 		Scanner sc = new Scanner(System.in);
 		sc.nextLine();
 
-		String[] newArgs = new String[args.length - 1];
+		String[] newArgs = new String[arguments.size() - 1];
 		for (int i = 0; i < newArgs.length; i++)
 		{
-			newArgs[i] = args[i + 1];
+			newArgs[i] = arguments.getArgument(i + 1);
 		}
 
 		AppLauncher.main(newArgs);

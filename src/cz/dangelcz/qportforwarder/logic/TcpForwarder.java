@@ -48,6 +48,8 @@ public class TcpForwarder
 
 	public void startForwarding()
 	{
+		logger.info("Forwarding from %s:%d to %s:%d", localIp, localPort, targetIp, targetPort);
+
 		while (true)
 		{
 			try

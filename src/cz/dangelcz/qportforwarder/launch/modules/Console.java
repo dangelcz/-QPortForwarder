@@ -2,6 +2,7 @@ package cz.dangelcz.qportforwarder.launch.modules;
 
 import cz.dangelcz.qportforwarder.launch.ARunModule;
 import cz.dangelcz.qportforwarder.launch.AppLauncher;
+import cz.dangelcz.qportforwarder.launch.ArgumentReader;
 import cz.dangelcz.qportforwarder.launch.annotation.RunModule;
 
 import java.util.NoSuchElementException;
@@ -12,7 +13,7 @@ import java.util.Scanner;
 public class Console extends ARunModule
 {
 	@Override
-	public void run(String[] args)
+	public void run(ArgumentReader arguments)
 	{
 		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(System.in);
