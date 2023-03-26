@@ -41,10 +41,12 @@ Start application from command line with standard `java -jar QPortForwarder.jar`
          1. Creates port forwarding handler from `localIp:port` to target `targetIp:port`
          2. This is handy for example when local pc has multiple network interfaces and we need to provide forwarding between them.
    2. Examples:
-      1. `forward 8080 8888` will create forwarding handler between **8080** to **8888** on **localhost**.
-      2. `forward 8080 192.168.10.10 8888` will create forwarding handler from **localhost:8080** to ip **192.168.10.10:8888** 
-      3. `forward 192.168.10.5 8080 10.0.0.5 8888` will create forwarding handler from local ip & port **192.168.10.5:8080** to **10.0.0.5:8888**
+      1. `forward 8888 8080` will create forwarding handler between **0.0.0.0:8888** and **127.0.0.1:8080**
+      2. `forward 8888 192.168.10.10 8080` will create forwarding handler from **0.0.0.0:8888** to ip **192.168.10.10:8080** 
+      3. `forward 192.168.10.5 8888 10.0.0.5 8080` will create forwarding handler from local ip & port **192.168.10.5:8080** to **10.0.0.5:8888**
 2. `help`
-   3. Prints description of all available commands
+   1. Prints description of all available commands
+
+
 
 
