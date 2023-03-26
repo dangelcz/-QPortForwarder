@@ -1,6 +1,8 @@
 package cz.dangelcz.qportforwarder.launch.modules;
 
+import cz.dangelcz.qportforwarder.data.ForwardingParameters;
 import cz.dangelcz.qportforwarder.launch.ARunModule;
+import cz.dangelcz.qportforwarder.launch.ArgumentReader;
 import cz.dangelcz.qportforwarder.launch.annotation.RunModule;
 import cz.dangelcz.qportforwarder.logic.TcpForwarder;
 
@@ -8,23 +10,46 @@ import cz.dangelcz.qportforwarder.logic.TcpForwarder;
  * Command example:
  * qforward [from ip port] [to ip port] (protocol)
  * qforward from-ip:port to-ip:port upd/tcp
- * 
- * @author Daniel
  *
+ * @author Daniel
  */
-@RunModule
+@RunModule(isDefault = true)
 public class Forward extends ARunModule
 {
 	@Override
-	public void run(String[] args)
+	public void run(ArgumentReader arguments)
 	{
-		String localIp = getArgument(args, 1);
-		int localPort = getIntArgument(args, 2);
-		String targetIp = getArgument(args, 3);
-		int targetPort = getIntArgument(args, 4);
-		
-		TcpForwarder forwarder = new TcpForwarder(localIp, localPort, targetIp, targetPort);
+		ForwardingParameters parameters = readArguments(arguments);
+
+		TcpForwarder forwarder = new TcpForwarder(parameters);
 		forwarder.startForwarding();
+	}
+
+	private ForwardingParameters readArguments(ArgumentReader arguments)
+	{
+		ForwardingParameters parameters = new ForwardingParameters();
+
+		if (arguments.unreadArguments() == 2)
+		{
+			parameters.setLocalPort(arguments.getNextIntArgument());
+			parameters.setTargetPort( arguments.getNextIntArgument());
+			return parameters;
+		}
+
+		if (arguments.unreadArguments() == 3)
+		{
+			parameters.setLocalPort(arguments.getNextIntArgument());
+			parameters.setTargetIp(arguments.getNextArgument());
+			parameters.setTargetPort(arguments.getNextIntArgument());
+			return parameters;
+		}
+
+		parameters.setLocalIp(arguments.getNextArgument());
+		parameters.setLocalPort(arguments.getNextIntArgument());
+		parameters.setTargetIp(arguments.getNextArgument());
+		parameters.setTargetPort(arguments.getNextIntArgument());
+
+		return parameters;
 	}
 
 	@Override

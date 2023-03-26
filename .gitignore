@@ -1,11 +1,12 @@
 *.*
 !*.java
 !*.jar
+!*.xml
+!*.md
 !.gitignore
 !.classpath
 !.project
 
 !build/*
-
-!pom.xml
-!resources/log4j2.xml
+!doc/*
+target

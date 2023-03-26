@@ -1,5 +1,6 @@
 package cz.dangelcz.qportforwarder.logic;
 
+import cz.dangelcz.qportforwarder.data.ForwardingParameters;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -14,25 +15,19 @@ public class TcpForwarder
 {
 	protected ServerSocket localServerSocket;
 
-	protected String localIp;
-	protected int localPort;
-	protected String targetIp;
-	protected int targetPort;
+	protected ForwardingParameters parameters;
 
 	protected List<DataExchangeConnection> connections;
 
 	private Logger logger = LogManager.getLogger(TcpForwarder.class);
 
-	public TcpForwarder(String localIp, int localPort, String targetIp, int targetPort)
+	public TcpForwarder(ForwardingParameters parameters)
 	{
-		this.localIp = localIp;
-		this.localPort = localPort;
-		this.targetIp = targetIp;
-		this.targetPort = targetPort;
+		this.parameters = parameters;
 
 		connections = new ArrayList<>();
 
-		createServerSocket(localIp, localPort);
+		createServerSocket(parameters.getLocalIp(), parameters.getLocalPort());
 	}
 
 	private void createServerSocket(String localIp, int localPort)
@@ -48,14 +43,18 @@ public class TcpForwarder
 
 	public void startForwarding()
 	{
-		logger.info("Forwarding from %s:%d to %s:%d", localIp, localPort, targetIp, targetPort);
+		logger.info("Forwarding from {}:{} to {}:{}",
+				parameters.getLocalIp(),
+				parameters.getLocalPort(),
+				parameters.getTargetIp(),
+				parameters.getTargetPort());
 
 		while (true)
 		{
 			try
 			{
 				Socket clientSocket = localServerSocket.accept();
-				Socket targetSocket = new Socket(targetIp, targetPort);
+				Socket targetSocket = new Socket(parameters.getTargetIp(), parameters.getTargetPort());
 
 				DataExchangeConnection connection = new DataExchangeConnection(clientSocket, targetSocket);
 				connections.add(connection);
