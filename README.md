@@ -34,9 +34,9 @@ Start application from command line with standard `java -jar QPortForwarder.jar`
 1. `forward` (or empty)
    1. Forwarding command with following parameters options
       1. `localPort targetPort`
-         1. Creates port forwarding handler on `localhost`
+         1. Creates port forwarding handler between `0.0.0.0:port` and `localhost:port`
       2. `localPort targetIp targetPort`
-         1. Creates port forwarding handler between `localhost:port` and `targetIp:port`
+         1. Creates port forwarding handler between `0.0.0.0:port` and `targetIp:port`
       3. `localIp localPort targetIp targetPort`
          1. Creates port forwarding handler from `localIp:port` to target `targetIp:port`
          2. This is handy for example when local pc has multiple network interfaces and we need to provide forwarding between them.
