@@ -57,6 +57,7 @@ public class TcpForwarder
 	public void startForwarding()
 	{
 		forwardingThread = new Thread(this::forwarding);
+		forwardingThread.setName("Forwarding thread");
 		forwardingThread.start();
 	}
 
