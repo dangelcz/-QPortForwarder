@@ -21,12 +21,24 @@ public class TcpForwarder
 
 	private Logger logger = LogManager.getLogger(TcpForwarder.class);
 
+	private boolean forwardingActive;
+
+	private Thread forwardingThread;
+
+	public TcpForwarder()
+	{
+		connections = new ArrayList<>();
+	}
+
 	public TcpForwarder(ForwardingParameters parameters)
 	{
-		this.parameters = parameters;
-
 		connections = new ArrayList<>();
+		resetParameters(parameters);
+	}
 
+	public void resetParameters(ForwardingParameters parameters)
+	{
+		this.parameters = parameters;
 		createServerSocket(parameters.getLocalIp(), parameters.getLocalPort());
 	}
 
@@ -35,7 +47,8 @@ public class TcpForwarder
 		try
 		{
 			localServerSocket = new ServerSocket(localPort, 100, InetAddress.getByName(localIp));
-		} catch (IOException e)
+		}
+		catch (IOException e)
 		{
 			logger.error("Unable to create socket", e);
 		}
@@ -43,13 +56,21 @@ public class TcpForwarder
 
 	public void startForwarding()
 	{
+		forwardingThread = new Thread(this::forwarding);
+		forwardingThread.start();
+	}
+
+	private void forwarding()
+	{
 		logger.info("Forwarding from {}:{} to {}:{}",
 				parameters.getLocalIp(),
 				parameters.getLocalPort(),
 				parameters.getTargetIp(),
 				parameters.getTargetPort());
 
-		while (true)
+		forwardingActive = true;
+
+		while (forwardingActive)
 		{
 			try
 			{
@@ -59,12 +80,49 @@ public class TcpForwarder
 				DataExchangeConnection connection = new DataExchangeConnection(clientSocket, targetSocket);
 				connections.add(connection);
 				connection.open();
-
-			} catch (IOException e)
+			}
+			catch (IOException e)
 			{
-				logger.error("Unable to start data exchange", e);
+				if (forwardingActive)
+				{
+					logger.error("Unable to start data exchange", e);
+				}
 			}
 		}
 	}
 
+	public void stopForwarding()
+	{
+		forwardingActive = false;
+		closeServerSocket();
+
+		connections.forEach(c -> c.close());
+		connections.clear();
+
+		try
+		{
+			forwardingThread.join();
+		}
+		catch (InterruptedException e)
+		{
+			logger.error("Error while waiting for main forwarding thread end", e);
+		}
+	}
+
+	private void closeServerSocket()
+	{
+		if (localServerSocket == null || localServerSocket.isClosed())
+		{
+			return;
+		}
+
+		try
+		{
+			localServerSocket.close();
+		}
+		catch (IOException e)
+		{
+			logger.error("Error closing server socket ", e);
+		}
+	}
 }

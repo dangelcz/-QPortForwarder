@@ -60,4 +60,15 @@ public class ForwardingParameters implements Serializable
 	{
 		this.targetPort = targetPort;
 	}
+
+	@Override
+	public String toString()
+	{
+		return "ForwardingParameters{" +
+				"localIp='" + localIp + '\'' +
+				", localPort=" + localPort +
+				", targetIp='" + targetIp + '\'' +
+				", targetPort=" + targetPort +
+				'}';
+	}
 }
