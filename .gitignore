@@ -2,6 +2,7 @@
 !*.java
 !*.jar
 !*.xml
+!*.fxml
 !*.md
 !.gitignore
 !.classpath

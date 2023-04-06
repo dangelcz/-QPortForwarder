@@ -8,12 +8,12 @@ import cz.dangelcz.qportforwarder.logic.TcpForwarder;
 
 /**
  * Command example:
- * qforward [from ip port] [to ip port] (protocol)
- * qforward from-ip:port to-ip:port upd/tcp
+ * forward [from ip port] [to ip port] (protocol)
+ * forward from-ip:port to-ip:port upd/tcp
  *
  * @author Daniel
  */
-@RunModule(isDefault = true)
+@RunModule
 public class Forward extends ARunModule
 {
 	@Override
