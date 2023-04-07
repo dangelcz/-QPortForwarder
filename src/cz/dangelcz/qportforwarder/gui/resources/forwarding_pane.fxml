@@ -27,7 +27,7 @@
           </Menu>
           <Menu mnemonicParsing="false" text="View">
             <items>
-                  <CheckMenuItem mnemonicParsing="false" text="Dark mode" />
+                  <CheckMenuItem mnemonicParsing="false" onAction="#onDarkModeClick" text="Dark mode" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">

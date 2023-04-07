@@ -3,6 +3,7 @@
 !*.jar
 !*.xml
 !*.fxml
+!*.css
 !*.md
 !.gitignore
 !.classpath
