@@ -1,14 +1,3 @@
-*.*
-!*.java
-!*.jar
-!*.xml
-!*.fxml
-!*.css
-!*.md
-!.gitignore
-!.classpath
-!.project
-
-!build/*
-!doc/*
+.idea
 target
+
