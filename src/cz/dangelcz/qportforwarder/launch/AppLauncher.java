@@ -5,7 +5,6 @@ import cz.dangelcz.qportforwarder.launch.annotation.RunModule;
 import cz.dangelcz.qportforwarder.launch.exceptions.ValidationException;
 import cz.dangelcz.qportforwarder.libs.PackageReflection;
 import cz.dangelcz.qportforwarder.libs.PackageReflection.*;
-import cz.dangelcz.qportforwarder.libs.Reflection;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -93,7 +92,7 @@ public class AppLauncher
 			return;
 		}
 
-		String command = arguments.getArgument(0);
+		String command = arguments.getArgumentOrDefault(0, "");
 		module = modules.getOrDefault(command.toLowerCase(), null);
 
 		if (module == null)

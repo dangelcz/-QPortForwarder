@@ -385,4 +385,12 @@ public class GeneralHelper
 	{
 		return list == null || list.isEmpty();
 	}
+
+	public static String getPomXmlVersion()
+	{
+		Package mainPackage = GeneralHelper.class.getPackage();
+		String version = mainPackage.getImplementationVersion();
+
+		return version;
+	}
 }
