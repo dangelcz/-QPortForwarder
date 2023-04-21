@@ -71,7 +71,7 @@ public class ForwardingLineController implements Initializable
 	private void stop()
 	{
 		forwarder.stopForwarding();
-		setInfoStatus("Stopped");
+		setInfoStatus("Idle");
 	}
 
 
@@ -122,17 +122,31 @@ public class ForwardingLineController implements Initializable
 		forwarder.startForwarding();
 	}
 
-	private ForwardingParameters getParameters()
+	public ForwardingParameters getParameters()
 	{
 		ForwardingParameters parameters = new ForwardingParameters();
 		parameters.setLocalIp(localIpTextField.getText());
 		parameters.setLocalPort(localPortSpinner.getValue());
 		parameters.setTargetIp(targetIpTextField.getText());
 		parameters.setTargetPort(targetPortSpinner.getValue());
+		parameters.setComment(commentTextField.getText());
 
 		return parameters;
 	}
 
+	public void setParameters(ForwardingParameters parameters)
+	{
+		if (parameters == null)
+		{
+			return;
+		}
+
+		localIpTextField.setText(parameters.getLocalIp());
+		localPortSpinner.getValueFactory().setValue(parameters.getLocalPort());
+		targetIpTextField.setText(parameters.getTargetIp());
+		targetPortSpinner.getValueFactory().setValue(parameters.getTargetPort());
+		commentTextField.setText(parameters.getComment());
+	}
 
 	private void setInfoStatus(String message)
 	{
@@ -151,8 +165,9 @@ public class ForwardingLineController implements Initializable
 
 	public void setStatus(String message, Color color)
 	{
-		statusLabel.setText("Status: " + message);
+		statusLabel.setText(message);
 		statusLabel.setTextFill(color);
 	}
+
 
 }

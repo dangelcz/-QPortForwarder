@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="34.0" prefWidth="748.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cz.dangelcz.qportforwarder.gui.controllers.ForwardingLineController">
+   <children>
+      <GridPane fx:id="gridPane" hgap="2.0" layoutX="14.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="100.0" prefWidth="120.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="80.0" prefWidth="80.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="100.0" prefWidth="120.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="80.0" prefWidth="80.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="50.0" prefWidth="80.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="160.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="140.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <TextField fx:id="localIpTextField" promptText="Local ip" text="127.0.0.1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+               <GridPane.margin>
+                  <Insets right="2.0" />
+               </GridPane.margin>
+            </TextField>
+            <Spinner fx:id="localPortSpinner" editable="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+               <GridPane.margin>
+                  <Insets right="2.0" />
+               </GridPane.margin>
+            </Spinner>
+            <TextField fx:id="targetIpTextField" promptText="Target ip" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+               <GridPane.margin>
+                  <Insets right="2.0" />
+               </GridPane.margin>
+            </TextField>
+            <Spinner fx:id="targetPortSpinner" editable="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+               <GridPane.margin>
+                  <Insets right="2.0" />
+               </GridPane.margin>
+            </Spinner>
+            <ToggleButton fx:id="startForwardingButton" mnemonicParsing="false" onAction="#onStartButtonClick" prefHeight="25.0" prefWidth="54.0" text="Start" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+            </ToggleButton>
+            <TextField fx:id="commentTextField" promptText="Comment" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+            </TextField>
+            <Label fx:id="statusLabel" alignment="CENTER" contentDisplay="CENTER" text="Idle" textAlignment="CENTER" GridPane.columnIndex="6" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+         </children>
+         <padding>
+            <Insets left="5.0" />
+         </padding>
+      </GridPane>
+   </children>
+</AnchorPane>

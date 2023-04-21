@@ -120,7 +120,7 @@ public class IoHelper
 
 		try
 		{
-			file.getParentFile().mkdirs();
+			file.getAbsoluteFile().getParentFile().mkdirs();
 			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), "UTF-8"));
 			bw.write(content);
 			bw.close();

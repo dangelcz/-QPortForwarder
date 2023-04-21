@@ -9,10 +9,14 @@ public class ForwardingParameters implements Serializable
 	private String targetIp = "localhost";
 	private int targetPort;
 
+	private String comment;
+
+
 	public ForwardingParameters()
 	{
 		// just empty constructor
 	}
+
 	public ForwardingParameters(String localIp, int localPort, String targetIp, int targetPort)
 	{
 		this.localIp = localIp;
@@ -61,6 +65,17 @@ public class ForwardingParameters implements Serializable
 		this.targetPort = targetPort;
 	}
 
+	public String getComment()
+	{
+		return comment;
+	}
+
+	public void setComment(String comment)
+	{
+		this.comment = comment;
+	}
+
+
 	@Override
 	public String toString()
 	{
@@ -68,7 +83,8 @@ public class ForwardingParameters implements Serializable
 				"localIp='" + localIp + '\'' +
 				", localPort=" + localPort +
 				", targetIp='" + targetIp + '\'' +
-				", targetPort=" + targetPort +
+				", targetPort=" + targetPort + '\'' +
+				", comment=" + comment +
 				'}';
 	}
 }
