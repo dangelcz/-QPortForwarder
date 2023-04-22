@@ -1,11 +1,16 @@
 package cz.dangelcz.qportforwarder.gui;
 
+import cz.dangelcz.qportforwarder.gui.controllers.ForwardingPaneController;
 import cz.dangelcz.qportforwarder.launch.AppLauncher;
 import cz.dangelcz.qportforwarder.libs.GeneralHelper;
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -15,6 +20,7 @@ public class WindowApplication extends Application
 {
 	private static Logger logger = LogManager.getLogger(WindowApplication.class);
 
+	private ForwardingPaneController mainController;
 
 	@Override
 	public void start(Stage stage) throws IOException
@@ -24,9 +30,16 @@ public class WindowApplication extends Application
 		try
 		{
 			Scene scene = new Scene(fxmlLoader.load(), 800, 480);
+			mainController = fxmlLoader.getController();
 
 			String version = GeneralHelper.getPomXmlVersion();
 			stage.setTitle("QPortForwarder " + version);
+			stage.getIcons().add(new Image(WindowApplication.class.getResourceAsStream("/icon3.png")));
+
+			stage.setOnCloseRequest(t -> {
+				mainController.closeApplication();
+			});
+
 			stage.setScene(scene);
 			stage.show();
 		}

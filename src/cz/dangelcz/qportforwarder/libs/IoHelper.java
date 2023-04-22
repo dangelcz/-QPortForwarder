@@ -85,7 +85,8 @@ public class IoHelper
 			BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
 			bos.write(content);
 			bos.close();
-		} catch (IOException e)
+		}
+		catch (IOException e)
 		{
 			e.printStackTrace();
 		}
@@ -101,7 +102,8 @@ public class IoHelper
 			BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file));
 			bis.read(data);
 			bis.close();
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
 			e.printStackTrace();
 		}
@@ -124,7 +126,8 @@ public class IoHelper
 			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), "UTF-8"));
 			bw.write(content);
 			bw.close();
-		} catch (IOException e)
+		}
+		catch (IOException e)
 		{
 			e.printStackTrace();
 		}
@@ -148,14 +151,15 @@ public class IoHelper
 
 			br.close();
 
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
 			e.printStackTrace();
 		}
 
 		return sb.toString();
 	}
-	
+
 	public static Map<String, String> loadProperiesFile(String path)
 	{
 		Map<String, String> data = new HashMap<>();
@@ -182,7 +186,8 @@ public class IoHelper
 
 			br.close();
 
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
 			e.printStackTrace();
 		}
@@ -238,7 +243,8 @@ public class IoHelper
 			in.close();
 			out.close();
 
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
 			e.printStackTrace();
 		}
@@ -284,4 +290,9 @@ public class IoHelper
 		}
 	}
 
+	public static boolean fileExists(String filePath)
+	{
+		File file = new File(filePath);
+		return file.exists();
+	}
 }

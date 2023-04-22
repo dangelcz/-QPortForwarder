@@ -3,7 +3,9 @@ package cz.dangelcz.qportforwarder.gui.controllers;
 import com.fasterxml.jackson.jr.ob.JSON;
 import cz.dangelcz.qportforwarder.config.AppConfig;
 import cz.dangelcz.qportforwarder.data.ForwardingParameters;
+import cz.dangelcz.qportforwarder.gui.WindowApplication;
 import cz.dangelcz.qportforwarder.libs.IoHelper;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,6 +15,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.net.URL;
@@ -22,6 +26,10 @@ import java.util.ResourceBundle;
 
 public class ForwardingPaneController implements Initializable
 {
+	private static Logger logger = LogManager.getLogger(ForwardingPaneController.class);
+
+	private static final String SESSION_FILE_NAME = "session.json";
+
 	@FXML
 	private VBox lineContainer;
 
@@ -36,6 +44,20 @@ public class ForwardingPaneController implements Initializable
 		toggleDarkMode();
 
 		rows = FXCollections.observableArrayList();
+
+		if (IoHelper.fileExists(SESSION_FILE_NAME))
+		{
+			loadSession();
+		}
+		else
+		{
+			newSession();
+		}
+	}
+
+	private void newSession()
+	{
+		deleteRows();
 
 		for (int i = 0; i < AppConfig.DEFAULT_LINE_COUNT; i++)
 		{
@@ -63,8 +85,7 @@ public class ForwardingPaneController implements Initializable
 		}
 		catch (Exception e)
 		{
-			//TODO logger
-			e.printStackTrace();
+			logger.error(e);
 		}
 	}
 
@@ -105,7 +126,7 @@ public class ForwardingPaneController implements Initializable
 	{
 		deleteRows();
 
-		String name = "session.json";
+		String name = SESSION_FILE_NAME;
 		String data = IoHelper.loadTextFile(name);
 		try
 		{
@@ -114,15 +135,14 @@ public class ForwardingPaneController implements Initializable
 		}
 		catch (IOException e)
 		{
-			throw new RuntimeException(e);
+			logger.error(e);
 		}
-
 	}
 
 	private void deleteRows()
 	{
 		rows.clear();
-		ObservableList<Node> children = lineContainer.getChildren();//.clear();
+		ObservableList<Node> children = lineContainer.getChildren();
 		children.remove(1, children.size());
 	}
 
@@ -131,14 +151,15 @@ public class ForwardingPaneController implements Initializable
 		saveSession();
 	}
 
-	private void saveSession()
+	//TODO change to getManager().saveSession()
+	public void saveSession()
 	{
 		List<ForwardingParameters> parameters = new ArrayList<>();
 		rows.forEach(r -> parameters.add(r.getParameters()));
 
 		try
 		{
-			String name = "session.json";
+			String name = SESSION_FILE_NAME;
 			String data = JSON.std.asString(parameters);
 			IoHelper.saveTextFile(name, data, true);
 		}
@@ -154,11 +175,18 @@ public class ForwardingPaneController implements Initializable
 
 	public void onCloseClick(ActionEvent actionEvent)
 	{
+		closeApplication();
+	}
+
+	public void closeApplication()
+	{
 		saveSession();
+		Platform.exit();
 		System.exit(0);
 	}
 
 	public void onAboutClick(ActionEvent actionEvent)
 	{
+		// TODO
 	}
 }

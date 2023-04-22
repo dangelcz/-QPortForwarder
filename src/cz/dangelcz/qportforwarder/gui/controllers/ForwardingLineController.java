@@ -85,35 +85,40 @@ public class ForwardingLineController implements Initializable
 
 	private boolean validate()
 	{
-		//force commit changes between spinner view and model - it is not auto :-(
-		localPortSpinner.increment(0);
-		targetPortSpinner.increment(0);
+		refreshSpinnerValues();
 
-		if (!GeneralHelper.isIp(localIpTextField.getText()))
+		if (GeneralHelper.INL(localIpTextField.getText()))
 		{
-			setErrorStatus("Not valid local ip");
+			setErrorStatus("Empty local ip");
 			return false;
 		}
 
-		if (localPortSpinner.getValue() == null)
+		if (localPortSpinner.getValue() == null || localPortSpinner.getValue() == 0)
 		{
 			setErrorStatus("Not valid local port");
 			return false;
 		}
 
-		if (!GeneralHelper.isIp(targetIpTextField.getText()))
+		if (GeneralHelper.INL(targetIpTextField.getText()))
 		{
-			setErrorStatus("Not valid target ip");
+			setErrorStatus("Empty target ip");
 			return false;
 		}
 
-		if (targetPortSpinner.getValue() == null)
+		if (targetPortSpinner.getValue() == null || targetPortSpinner.getValue() == 0)
 		{
 			setErrorStatus("Not valid target port");
 			return false;
 		}
 
 		return true;
+	}
+
+	public void refreshSpinnerValues()
+	{
+		//force commit changes between spinner view and model - it is not auto :-(
+		localPortSpinner.increment(0);
+		targetPortSpinner.increment(0);
 	}
 
 	private void resetForwarder(ForwardingParameters parameters)
@@ -124,6 +129,8 @@ public class ForwardingLineController implements Initializable
 
 	public ForwardingParameters getParameters()
 	{
+		refreshSpinnerValues();
+
 		ForwardingParameters parameters = new ForwardingParameters();
 		parameters.setLocalIp(localIpTextField.getText());
 		parameters.setLocalPort(localPortSpinner.getValue());
@@ -146,11 +153,13 @@ public class ForwardingLineController implements Initializable
 		targetIpTextField.setText(parameters.getTargetIp());
 		targetPortSpinner.getValueFactory().setValue(parameters.getTargetPort());
 		commentTextField.setText(parameters.getComment());
+
+		refreshSpinnerValues();
 	}
 
 	private void setInfoStatus(String message)
 	{
-		setStatus(message, Color.BLACK);
+		setStatus(message, Color.GRAY);
 	}
 
 	private void setSuccessStatus(String message)
@@ -168,6 +177,4 @@ public class ForwardingLineController implements Initializable
 		statusLabel.setText(message);
 		statusLabel.setTextFill(color);
 	}
-
-
 }
