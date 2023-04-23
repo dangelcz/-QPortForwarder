@@ -34,7 +34,7 @@ public class WindowApplication extends Application
 
 			String version = GeneralHelper.getPomXmlVersion();
 			stage.setTitle("QPortForwarder " + version);
-			stage.getIcons().add(new Image(WindowApplication.class.getResourceAsStream("/icon3.png")));
+			stage.getIcons().add(new Image(WindowApplication.class.getResourceAsStream("/app_icon.png")));
 
 			stage.setOnCloseRequest(t -> {
 				mainController.closeApplication();

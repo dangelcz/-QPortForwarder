@@ -1,15 +1,18 @@
 package cz.dangelcz.qportforwarder.gui.controllers;
 
+import com.sun.javafx.collections.ObservableListWrapper;
 import cz.dangelcz.qportforwarder.data.ForwardingParameters;
 import cz.dangelcz.qportforwarder.libs.GeneralHelper;
+import cz.dangelcz.qportforwarder.libs.NetHelper;
 import cz.dangelcz.qportforwarder.logic.TcpForwarder;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 
@@ -19,7 +22,7 @@ public class ForwardingLineController implements Initializable
 	private TextField commentTextField;
 
 	@FXML
-	private TextField localIpTextField;
+	private ComboBox<String> localIpCombo;
 
 	@FXML
 	private Spinner<Integer> localPortSpinner;
@@ -38,6 +41,8 @@ public class ForwardingLineController implements Initializable
 
 	private TcpForwarder forwarder;
 
+	private static List<String> localAddresses;
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources)
 	{
@@ -45,6 +50,15 @@ public class ForwardingLineController implements Initializable
 
 		localPortSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 65535, 0));
 		targetPortSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 65535, 0));
+
+		if (localAddresses == null)
+		{
+			localAddresses = NetHelper.getLocalAddresses();
+			localAddresses.add(NetHelper.getLocalHostname());
+			localAddresses.add("0.0.0.0");
+		}
+
+		localIpCombo.setItems(new ObservableListWrapper<>(localAddresses));
 	}
 
 	@FXML
@@ -71,23 +85,32 @@ public class ForwardingLineController implements Initializable
 	private void stop()
 	{
 		forwarder.stopForwarding();
+		enableLine(true);
 		setInfoStatus("Idle");
 	}
-
 
 	private void start()
 	{
 		ForwardingParameters parameters = getParameters();
 		resetForwarder(parameters);
-
+		enableLine(false);
 		setSuccessStatus("Running");
+	}
+
+	private void enableLine(boolean enabled)
+	{
+		localIpCombo.setDisable(!enabled);
+		localPortSpinner.setDisable(!enabled);
+		targetIpTextField.setDisable(!enabled);
+		targetPortSpinner.setDisable(!enabled);
+		commentTextField.setDisable(!enabled);
 	}
 
 	private boolean validate()
 	{
 		refreshSpinnerValues();
 
-		if (GeneralHelper.INL(localIpTextField.getText()))
+		if (GeneralHelper.INL(localIpCombo.getValue()))
 		{
 			setErrorStatus("Empty local ip");
 			return false;
@@ -132,7 +155,7 @@ public class ForwardingLineController implements Initializable
 		refreshSpinnerValues();
 
 		ForwardingParameters parameters = new ForwardingParameters();
-		parameters.setLocalIp(localIpTextField.getText());
+		parameters.setLocalIp(localIpCombo.getValue());
 		parameters.setLocalPort(localPortSpinner.getValue());
 		parameters.setTargetIp(targetIpTextField.getText());
 		parameters.setTargetPort(targetPortSpinner.getValue());
@@ -148,13 +171,15 @@ public class ForwardingLineController implements Initializable
 			return;
 		}
 
-		localIpTextField.setText(parameters.getLocalIp());
+		localIpCombo.setValue(parameters.getLocalIp());
 		localPortSpinner.getValueFactory().setValue(parameters.getLocalPort());
 		targetIpTextField.setText(parameters.getTargetIp());
 		targetPortSpinner.getValueFactory().setValue(parameters.getTargetPort());
 		commentTextField.setText(parameters.getComment());
 
 		refreshSpinnerValues();
+
+		copyFromToAddress();
 	}
 
 	private void setInfoStatus(String message)
@@ -177,4 +202,18 @@ public class ForwardingLineController implements Initializable
 		statusLabel.setText(message);
 		statusLabel.setTextFill(color);
 	}
+
+	private void copyFromToAddress()
+	{
+		if (GeneralHelper.INL(targetIpTextField.getText()))
+		{
+			targetIpTextField.setText(localIpCombo.getValue());
+		}
+	}
+
+	public void comboAction(ActionEvent actionEvent)
+	{
+		copyFromToAddress();
+	}
+
 }

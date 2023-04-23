@@ -21,11 +21,7 @@
           <RowConstraints prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <TextField fx:id="localIpTextField" promptText="Local ip" text="127.0.0.1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-               <GridPane.margin>
-                  <Insets right="2.0" />
-               </GridPane.margin>
-            </TextField>
+            <ComboBox fx:id="localIpCombo" editable="true" onAction="#comboAction" prefWidth="150.0" promptText="Local ip" />
             <Spinner fx:id="localPortSpinner" editable="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <GridPane.margin>
                   <Insets right="2.0" />
