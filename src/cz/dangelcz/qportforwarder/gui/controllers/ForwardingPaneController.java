@@ -4,6 +4,7 @@ import com.fasterxml.jackson.jr.ob.JSON;
 import cz.dangelcz.qportforwarder.config.AppConfig;
 import cz.dangelcz.qportforwarder.data.ApplicationConfigData;
 import cz.dangelcz.qportforwarder.data.ForwardingParameters;
+import cz.dangelcz.qportforwarder.gui.AboutDialog;
 import cz.dangelcz.qportforwarder.libs.IoHelper;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -13,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.CheckMenuItem;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -42,9 +44,13 @@ public class ForwardingPaneController implements Initializable
 
 	private ObservableList<ForwardingLineController> rows;
 
+	private AboutDialog aboutDialog;
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources)
 	{
+		aboutDialog = new AboutDialog();
+
 		updateDarkMode();
 
 		rows = FXCollections.observableArrayList();
@@ -102,9 +108,13 @@ public class ForwardingPaneController implements Initializable
 
 	private void updateDarkMode()
 	{
-		String cssFile = "/dark_theme.css";
+		updateStyleSheets(rootPane.getStylesheets());
+		updateStyleSheets(aboutDialog.getScene().getStylesheets());
+	}
 
-		ObservableList<String> stylesheets = rootPane.getStylesheets();
+	private void updateStyleSheets(ObservableList<String> stylesheets)
+	{
+		String cssFile = "/dark_theme.css";
 
 		if (darkModeMenu.isSelected() && !stylesheets.contains(cssFile))
 		{
@@ -143,7 +153,7 @@ public class ForwardingPaneController implements Initializable
 			darkModeMenu.setSelected(sessionData.isDarkMode());
 			updateDarkMode();
 		}
-		catch (IOException e)
+		catch (Exception e)
 		{
 			logger.error("Error while loading session", e);
 			newSession();
@@ -203,7 +213,10 @@ public class ForwardingPaneController implements Initializable
 
 	public void onAboutClick(ActionEvent actionEvent)
 	{
-		// TODO
+		if (!aboutDialog.isShowing())
+		{
+			aboutDialog.show();
+		}
 	}
 
 	public void onClearClick(ActionEvent actionEvent)

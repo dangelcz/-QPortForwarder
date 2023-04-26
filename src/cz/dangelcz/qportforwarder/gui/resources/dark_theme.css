@@ -130,3 +130,8 @@
     -fx-text-fill: #bbbbbb;
     -fx-font-weight: normal;
 }
+
+.hyperlink {
+    -fx-focus-color: none;
+    -fx-border-color: transparent;    
+}
