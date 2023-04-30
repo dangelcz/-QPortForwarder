@@ -17,7 +17,7 @@ public class AboutDialog extends Stage
 		super();
 
 		setTitle("About");
-		getIcons().add(ApplicationResources.ICON_64);
+		getIcons().add(WindowApplicationResources.ICON_64);
 		setResizable(false);
 		initStyle(StageStyle.UTILITY);
 
@@ -28,7 +28,7 @@ public class AboutDialog extends Stage
 	{
 		try
 		{
-			FXMLLoader fxmlLoader = new FXMLLoader(ApplicationResources.ABOUT_FXML);
+			FXMLLoader fxmlLoader = new FXMLLoader(WindowApplicationResources.ABOUT_FXML);
 			Scene scene = new Scene(fxmlLoader.load());
 			setScene(scene);
 		}

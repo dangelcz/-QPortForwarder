@@ -20,7 +20,7 @@ public class WindowApplication extends Application
 	@Override
 	public void start(Stage stage) throws IOException
 	{
-		FXMLLoader fxmlLoader = new FXMLLoader(ApplicationResources.FORWARDING_PANE_FXML);
+		FXMLLoader fxmlLoader = new FXMLLoader(WindowApplicationResources.FORWARDING_PANE_FXML);
 
 		try
 		{
@@ -30,7 +30,7 @@ public class WindowApplication extends Application
 			String version = GeneralHelper.getPomXmlVersion();
 			stage.setTitle("QPortForwarder " + version);
 
-			stage.getIcons().addAll(ApplicationResources.ICON_64, ApplicationResources.ICON_32, ApplicationResources.ICON_16);
+			stage.getIcons().addAll(WindowApplicationResources.ICON_64, WindowApplicationResources.ICON_32, WindowApplicationResources.ICON_16);
 
 			stage.setOnCloseRequest(t -> {
 				mainController.closeApplication();

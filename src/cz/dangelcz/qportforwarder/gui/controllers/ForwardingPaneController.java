@@ -5,7 +5,7 @@ import cz.dangelcz.qportforwarder.config.AppConfig;
 import cz.dangelcz.qportforwarder.data.ApplicationConfigData;
 import cz.dangelcz.qportforwarder.data.ForwardingParameters;
 import cz.dangelcz.qportforwarder.gui.AboutDialog;
-import cz.dangelcz.qportforwarder.gui.ApplicationResources;
+import cz.dangelcz.qportforwarder.gui.WindowApplicationResources;
 import cz.dangelcz.qportforwarder.libs.IoHelper;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -84,7 +84,7 @@ public class ForwardingPaneController implements Initializable
 	{
 		try
 		{
-			FXMLLoader fxmlLoader = new FXMLLoader(ApplicationResources.FORWARDING_LINE_FXML);
+			FXMLLoader fxmlLoader = new FXMLLoader(WindowApplicationResources.FORWARDING_LINE_FXML);
 			Node component = fxmlLoader.load();
 			ForwardingLineController controller = fxmlLoader.getController();
 			controller.setParameters(parameters);
@@ -112,7 +112,7 @@ public class ForwardingPaneController implements Initializable
 
 	private void updateStyleSheets(ObservableList<String> stylesheets)
 	{
-		String cssFile = ApplicationResources.DARK_MODE_CSS_FILE;
+		String cssFile = WindowApplicationResources.DARK_MODE_CSS_FILE;
 
 		if (darkModeMenu.isSelected() && !stylesheets.contains(cssFile))
 		{
