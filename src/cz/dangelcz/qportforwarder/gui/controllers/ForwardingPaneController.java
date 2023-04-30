@@ -182,7 +182,7 @@ public class ForwardingPaneController implements Initializable
 
 		try
 		{
-			String data = JSON.std.asString(sessionData);
+			String data = JSON.std.with(JSON.Feature.PRETTY_PRINT_OUTPUT).asString(sessionData);
 			IoHelper.saveTextFile(AppConfig.SESSION_FILE_NAME, data, true);
 		}
 		catch (IOException e)
