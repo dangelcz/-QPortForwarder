@@ -31,8 +31,6 @@ public class ForwardingPaneController implements Initializable
 {
 	private static Logger logger = LogManager.getLogger(ForwardingPaneController.class);
 
-	private static final String SESSION_FILE_NAME = "session.json";
-
 	@FXML
 	private VBox lineContainer;
 
@@ -55,7 +53,7 @@ public class ForwardingPaneController implements Initializable
 
 		rows = FXCollections.observableArrayList();
 
-		if (IoHelper.fileExists(SESSION_FILE_NAME))
+		if (IoHelper.fileExists(AppConfig.SESSION_FILE_NAME))
 		{
 			loadSession();
 		}
@@ -143,8 +141,8 @@ public class ForwardingPaneController implements Initializable
 	{
 		deleteRows();
 
-		String name = SESSION_FILE_NAME;
-		String data = IoHelper.loadTextFile(name);
+		String data = IoHelper.loadTextFile(AppConfig.SESSION_FILE_NAME);
+
 		try
 		{
 			ApplicationConfigData sessionData = JSON.std.beanFrom(ApplicationConfigData.class, data);
@@ -184,9 +182,8 @@ public class ForwardingPaneController implements Initializable
 
 		try
 		{
-			String name = SESSION_FILE_NAME;
 			String data = JSON.std.asString(sessionData);
-			IoHelper.saveTextFile(name, data, true);
+			IoHelper.saveTextFile(AppConfig.SESSION_FILE_NAME, data, true);
 		}
 		catch (IOException e)
 		{

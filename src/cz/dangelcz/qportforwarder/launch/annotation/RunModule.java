@@ -10,5 +10,6 @@ import java.lang.annotation.Target;
 public @interface RunModule
 {
 	public String value() default "";
+
 	public boolean isDefault() default false;
 }

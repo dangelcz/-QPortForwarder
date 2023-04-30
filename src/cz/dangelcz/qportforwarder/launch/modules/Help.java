@@ -5,6 +5,7 @@ import cz.dangelcz.qportforwarder.launch.ARunModule;
 import cz.dangelcz.qportforwarder.launch.AppLauncher;
 import cz.dangelcz.qportforwarder.launch.ArgumentReader;
 import cz.dangelcz.qportforwarder.launch.annotation.RunModule;
+import cz.dangelcz.qportforwarder.libs.GeneralHelper;
 
 import java.util.Map;
 import java.util.TreeSet;
@@ -19,7 +20,7 @@ public class Help extends ARunModule
 	{
 		modules = AppLauncher.getModules();
 
-		System.out.println("Application " + AppConfig.APP_VERSION + " syntax:");
+		System.out.println("Application " + GeneralHelper.getPomXmlVersion() + " syntax:");
 		System.out.println("<command> <required parameter> (optional parameter) ...");
 		System.out.println();
 
