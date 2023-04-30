@@ -1,0 +1,16 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="AppLauncher (console)" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="cz.dangelcz.qportforwarder.launch.AppLauncher" />
+    <module name="QPortForwarder" />
+    <option name="PROGRAM_PARAMETERS" value="console" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="cz.dangelcz.qportforwarder.launch.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
