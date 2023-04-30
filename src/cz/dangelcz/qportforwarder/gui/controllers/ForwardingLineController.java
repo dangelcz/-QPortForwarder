@@ -106,6 +106,7 @@ public class ForwardingLineController implements Initializable
 		{
 			logger.error("Error while creating forwarder", e);
 			setErrorStatus(e.getMessage());
+			startForwardingButton.setSelected(false);
 			return;
 		}
 
