@@ -1,6 +1,7 @@
 package cz.dangelcz.qportforwarder.logic;
 
 import cz.dangelcz.qportforwarder.data.ForwardingParameters;
+import cz.dangelcz.qportforwarder.libs.ThreadProvider;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -22,8 +23,6 @@ public class TcpForwarder
 	private Logger logger = LogManager.getLogger(TcpForwarder.class);
 
 	private boolean forwardingActive;
-
-	private Thread forwardingThread;
 
 	public TcpForwarder()
 	{
@@ -56,9 +55,7 @@ public class TcpForwarder
 
 	public void startForwarding()
 	{
-		forwardingThread = new Thread(this::forwarding);
-		forwardingThread.setName("Forwarding thread");
-		forwardingThread.start();
+		ThreadProvider.execute(this::forwarding);
 	}
 
 	private void forwarding()
@@ -99,15 +96,6 @@ public class TcpForwarder
 
 		connections.forEach(c -> c.close());
 		connections.clear();
-
-		try
-		{
-			forwardingThread.join();
-		}
-		catch (InterruptedException e)
-		{
-			logger.error("Error while waiting for main forwarding thread end", e);
-		}
 	}
 
 	private void closeServerSocket()

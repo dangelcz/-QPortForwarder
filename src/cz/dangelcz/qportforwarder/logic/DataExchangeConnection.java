@@ -1,5 +1,6 @@
 package cz.dangelcz.qportforwarder.logic;
 
+import cz.dangelcz.qportforwarder.libs.ThreadProvider;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -24,8 +25,8 @@ public class DataExchangeConnection
 		DataExchangeThread leftRight = new DataExchangeThread(this, clientSocket, targetSocket);
 		DataExchangeThread rightLeft = new DataExchangeThread(this, targetSocket, clientSocket);
 
-		leftRight.start();
-		rightLeft.start();
+		ThreadProvider.execute(leftRight);
+		ThreadProvider.execute(rightLeft);
 	}
 
 	public void close()

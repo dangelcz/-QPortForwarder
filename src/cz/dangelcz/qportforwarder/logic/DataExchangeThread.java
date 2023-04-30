@@ -10,7 +10,7 @@ import java.net.Socket;
 
 import static cz.dangelcz.qportforwarder.config.AppConfig.DATA_EXCHANGE_BUFFER_SIZE;
 
-public class DataExchangeThread extends Thread
+public class DataExchangeThread implements Runnable
 {
 	private InputStream inputStream;
 	private OutputStream outputStream;
