@@ -5,6 +5,7 @@ import cz.dangelcz.qportforwarder.config.AppConfig;
 import cz.dangelcz.qportforwarder.data.ApplicationConfigData;
 import cz.dangelcz.qportforwarder.data.ForwardingParameters;
 import cz.dangelcz.qportforwarder.gui.AboutDialog;
+import cz.dangelcz.qportforwarder.gui.ApplicationResources;
 import cz.dangelcz.qportforwarder.libs.IoHelper;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -14,7 +15,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.CheckMenuItem;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -86,7 +86,7 @@ public class ForwardingPaneController implements Initializable
 	{
 		try
 		{
-			FXMLLoader fxmlLoader = new FXMLLoader(ForwardingLineController.class.getResource("/forwarding_line_grid.fxml"));
+			FXMLLoader fxmlLoader = new FXMLLoader(ApplicationResources.FORWARDING_LINE_FXML);
 			Node component = fxmlLoader.load();
 			ForwardingLineController controller = fxmlLoader.getController();
 			controller.setParameters(parameters);
@@ -114,7 +114,7 @@ public class ForwardingPaneController implements Initializable
 
 	private void updateStyleSheets(ObservableList<String> stylesheets)
 	{
-		String cssFile = "/dark_theme.css";
+		String cssFile = ApplicationResources.DARK_MODE_CSS_FILE;
 
 		if (darkModeMenu.isSelected() && !stylesheets.contains(cssFile))
 		{

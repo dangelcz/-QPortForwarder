@@ -5,7 +5,6 @@ import cz.dangelcz.qportforwarder.libs.GeneralHelper;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,7 +20,7 @@ public class WindowApplication extends Application
 	@Override
 	public void start(Stage stage) throws IOException
 	{
-		FXMLLoader fxmlLoader = new FXMLLoader(WindowApplication.class.getResource("/forwarding_pane.fxml"));
+		FXMLLoader fxmlLoader = new FXMLLoader(ApplicationResources.FORWARDING_PANE_FXML);
 
 		try
 		{
@@ -30,7 +29,8 @@ public class WindowApplication extends Application
 
 			String version = GeneralHelper.getPomXmlVersion();
 			stage.setTitle("QPortForwarder " + version);
-			stage.getIcons().add(new Image(WindowApplication.class.getResourceAsStream("/app_icon.png")));
+
+			stage.getIcons().addAll(ApplicationResources.ICON_64, ApplicationResources.ICON_32, ApplicationResources.ICON_16);
 
 			stage.setOnCloseRequest(t -> {
 				mainController.closeApplication();

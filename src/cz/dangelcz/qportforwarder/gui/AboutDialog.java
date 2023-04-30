@@ -2,7 +2,6 @@ package cz.dangelcz.qportforwarder.gui;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.apache.logging.log4j.LogManager;
@@ -18,7 +17,7 @@ public class AboutDialog extends Stage
 		super();
 
 		setTitle("About");
-		getIcons().add(new Image(WindowApplication.class.getResourceAsStream("/app_icon.png")));
+		getIcons().add(ApplicationResources.ICON_64);
 		setResizable(false);
 		initStyle(StageStyle.UTILITY);
 
@@ -29,7 +28,7 @@ public class AboutDialog extends Stage
 	{
 		try
 		{
-			FXMLLoader fxmlLoader = new FXMLLoader(WindowApplication.class.getResource("/about.fxml"));
+			FXMLLoader fxmlLoader = new FXMLLoader(ApplicationResources.ABOUT_FXML);
 			Scene scene = new Scene(fxmlLoader.load());
 			setScene(scene);
 		}

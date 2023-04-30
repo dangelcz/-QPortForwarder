@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.2.2 (732a01da63, 2022-12-09)"
+   sodipodi:docname="icon3.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:pageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="1.8116734"
+     inkscape:cx="378.37946"
+     inkscape:cy="376.99952"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="1912"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     inkscape:showpageshadow="0"
+     inkscape:deskcolor="#505050" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#3c3f41;fill-opacity:1;fill-rule:evenodd;stroke-width:7;stroke-linejoin:round;paint-order:fill markers stroke;stroke:#7f7f7f;stroke-opacity:1;stroke-dasharray:none"
+       id="rect846"
+       width="61.961052"
+       height="61.961052"
+       x="64.130737"
+       y="64.130737"
+       ry="16.924389"
+       inkscape:export-filename="icon3.png"
+       inkscape:export-xdpi="25.18"
+       inkscape:export-ydpi="25.18" />
+    <path
+       style="fill:#7f7f7f;fill-opacity:1;fill-rule:evenodd;stroke:#7f7f7f;stroke-width:1.40222;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 77.264489,83.038132 V 95.111784 107.18439 L 93.955264,95.111265 Z"
+       id="path952"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="C:\Users\Daniel\Desktop\Prace\Projekty\QPortForwarder\icon2.png"
+       inkscape:export-xdpi="11.574634"
+       inkscape:export-ydpi="11.574634" />
+    <path
+       style="fill:#7f7f7f;fill-opacity:1;fill-rule:evenodd;stroke:#7f7f7f;stroke-width:1.40222;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 99.410224,83.038132 V 95.111784 107.18439 L 116.101,95.111265 Z"
+       id="path961"
+       sodipodi:nodetypes="ccccc"
+       inkscape:export-filename="C:\Users\Daniel\Desktop\Prace\Projekty\QPortForwarder\icon2.png"
+       inkscape:export-xdpi="11.574634"
+       inkscape:export-ydpi="11.574634" />
+  </g>
+</svg>

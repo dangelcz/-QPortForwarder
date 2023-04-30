@@ -1,6 +1,7 @@
 package cz.dangelcz.qportforwarder.gui.controllers;
 
 import cz.dangelcz.qportforwarder.config.AppConfig;
+import cz.dangelcz.qportforwarder.gui.ApplicationResources;
 import cz.dangelcz.qportforwarder.gui.WindowApplication;
 import cz.dangelcz.qportforwarder.libs.GeneralHelper;
 import javafx.event.ActionEvent;
@@ -41,7 +42,7 @@ public class AboutController implements Initializable
 	public void initialize(URL location, ResourceBundle resources)
 	{
 		versionLabel.setText("Version: " + GeneralHelper.getPomXmlVersion());
-		appLogo.setImage(new Image(WindowApplication.class.getResourceAsStream("/app_icon.png")));
+		appLogo.setImage(ApplicationResources.ICON_64);
 	}
 
 	@FXML
