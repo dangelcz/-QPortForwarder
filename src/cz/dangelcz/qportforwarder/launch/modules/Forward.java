@@ -5,6 +5,10 @@ import cz.dangelcz.qportforwarder.launch.ARunModule;
 import cz.dangelcz.qportforwarder.launch.ArgumentReader;
 import cz.dangelcz.qportforwarder.launch.annotation.RunModule;
 import cz.dangelcz.qportforwarder.logic.TcpForwarder;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.io.IOException;
 
 /**
  * Command example:
@@ -16,12 +20,24 @@ import cz.dangelcz.qportforwarder.logic.TcpForwarder;
 @RunModule
 public class Forward extends ARunModule
 {
+	private Logger logger = LogManager.getLogger(Forward.class);
+
 	@Override
 	public void run(ArgumentReader arguments)
 	{
 		ForwardingParameters parameters = readArguments(arguments);
+		TcpForwarder forwarder;
 
-		TcpForwarder forwarder = new TcpForwarder(parameters);
+		try
+		{
+			forwarder = new TcpForwarder(parameters);
+		}
+		catch (IOException e)
+		{
+			logger.error("Error while creating forwarder", e);
+			return;
+		}
+
 		forwarder.startForwarding();
 	}
 
@@ -32,7 +48,7 @@ public class Forward extends ARunModule
 		if (arguments.unreadArguments() == 2)
 		{
 			parameters.setLocalPort(arguments.getNextIntArgument());
-			parameters.setTargetPort( arguments.getNextIntArgument());
+			parameters.setTargetPort(arguments.getNextIntArgument());
 			return parameters;
 		}
 

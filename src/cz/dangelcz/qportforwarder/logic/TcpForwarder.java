@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,28 +30,21 @@ public class TcpForwarder
 		connections = new ArrayList<>();
 	}
 
-	public TcpForwarder(ForwardingParameters parameters)
+	public TcpForwarder(ForwardingParameters parameters) throws IOException
 	{
 		connections = new ArrayList<>();
 		resetParameters(parameters);
 	}
 
-	public void resetParameters(ForwardingParameters parameters)
+	public void resetParameters(ForwardingParameters parameters) throws IOException
 	{
 		this.parameters = parameters;
 		createServerSocket(parameters.getLocalIp(), parameters.getLocalPort());
 	}
 
-	private void createServerSocket(String localIp, int localPort)
+	private void createServerSocket(String localIp, int localPort) throws IOException
 	{
-		try
-		{
-			localServerSocket = new ServerSocket(localPort, 100, InetAddress.getByName(localIp));
-		}
-		catch (IOException e)
-		{
-			logger.error("Unable to create socket", e);
-		}
+		localServerSocket = new ServerSocket(localPort, 100, InetAddress.getByName(localIp));
 	}
 
 	public void startForwarding()

@@ -2,6 +2,7 @@ package cz.dangelcz.qportforwarder.gui.controllers;
 
 import com.sun.javafx.collections.ObservableListWrapper;
 import cz.dangelcz.qportforwarder.data.ForwardingParameters;
+import cz.dangelcz.qportforwarder.launch.modules.Forward;
 import cz.dangelcz.qportforwarder.libs.GeneralHelper;
 import cz.dangelcz.qportforwarder.libs.NetHelper;
 import cz.dangelcz.qportforwarder.logic.TcpForwarder;
@@ -10,7 +11,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -43,6 +47,8 @@ public class ForwardingLineController implements Initializable
 
 	private static List<String> localAddresses;
 
+	private Logger logger = LogManager.getLogger(ForwardingLineController.class);
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources)
 	{
@@ -73,12 +79,10 @@ public class ForwardingLineController implements Initializable
 			}
 
 			start();
-			startForwardingButton.setText("Stop");
 		}
 		else
 		{
 			stop();
-			startForwardingButton.setText("Start");
 		}
 	}
 
@@ -87,14 +91,29 @@ public class ForwardingLineController implements Initializable
 		forwarder.stopForwarding();
 		enableLine(true);
 		setInfoStatus("Idle");
+		startForwardingButton.setText("Start");
 	}
 
 	private void start()
 	{
 		ForwardingParameters parameters = getParameters();
-		resetForwarder(parameters);
+
+		try
+		{
+			forwarder.resetParameters(parameters);
+		}
+		catch (IOException e)
+		{
+			logger.error("Error while creating forwarder", e);
+			setErrorStatus(e.getMessage());
+			return;
+		}
+
+		forwarder.startForwarding();
+
 		enableLine(false);
 		setSuccessStatus("Running");
+		startForwardingButton.setText("Stop");
 	}
 
 	private void enableLine(boolean enabled)
@@ -142,12 +161,6 @@ public class ForwardingLineController implements Initializable
 		//force commit changes between spinner view and model - it is not auto :-(
 		localPortSpinner.increment(0);
 		targetPortSpinner.increment(0);
-	}
-
-	private void resetForwarder(ForwardingParameters parameters)
-	{
-		forwarder.resetParameters(parameters);
-		forwarder.startForwarding();
 	}
 
 	public ForwardingParameters getParameters()
